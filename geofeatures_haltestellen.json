@@ -1,0 +1,295 @@
+{
+      "type": "Feature",
+      "properties": {
+        "name": "from",
+        "type": "from",
+        "popupContent": "This is where the Rockies play!"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.578343,
+          53.079616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rathausstraße",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.578343,
+          53.079616
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Händelstraße",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.569963,
+          53.07825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via3",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.565565,
+          53.077641
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via4",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.565114,
+          53.079319
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via5",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.568525791168215,
+          53.08107870836021
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via6",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.575006,
+          53.080634
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via7",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.567818,
+          53.084037
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via8",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.564535,
+          53.089849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via9",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.557861,
+          53.09177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via10",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.557861,
+          53.09177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via11",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.560136,
+          53.092137
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via12",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.560136,
+          53.092137
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via13",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.561874,
+          53.088992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via14",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.561874,
+          53.088992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via15",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.561874,
+          53.088992
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via16",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.56713104248047,
+          53.08397228354196
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via17",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.574448108673097,
+          53.080747983638574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via18",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.574448108673097,
+          53.080747983638574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "via19",
+        "type": "via"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.578031539916994,
+          53.07987130843704
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "to",
+        "type": "to"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.578031539916994,
+          53.07987130843704
+        ]
+      }
+    }

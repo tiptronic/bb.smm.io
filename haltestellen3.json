@@ -1,0 +1,536 @@
+[
+    {
+        "name": "Albert-Schweitzer-Str.",
+        "lat": 53.076313,
+        "lng": 10.598399,
+        "id": 1,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 36,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Am Britzenberg/Mozartstr.",
+        "lat": 53.07963,
+        "lng": 10.564977,
+        "id": 2,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 3,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Am Britzenberg/Schubertstr.",
+        "lat": 53.078148,
+        "lng": 10.565463,
+        "id": 3,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 13,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Am Fuhrenkamp",
+        "lat": 53.08432,
+        "lng": 10.59263,
+        "id": 4,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 12,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Am Rießel",
+        "lat": 53.08247,
+        "lng": 10.56486,
+        "id": 5,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Bahnhof",
+        "lat": 53.07793,
+        "lng": 10.57487,
+        "id": 6,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 21,
+                "route_id": 70721000
+            },
+            {
+                "departure_offset": 1000,
+                "prev_id": 30,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Dahlenburger Str.",
+        "lat": 53.08413,
+        "lng": 10.58858,
+        "id": 7,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 34,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Ebstorfer Str.",
+        "lat": 53.08087,
+        "lng": 10.569352,
+        "id": 8,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 2,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Gollern",
+        "lat": 53.080948,
+        "lng": 10.640872,
+        "id": 9,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Gollerner Weg",
+        "lat": 53.0803,
+        "lng": 10.59769,
+        "id": 10,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 1,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Groß Hesebeck Siedlung K 41",
+        "lat": 53.07036,
+        "lng": 10.625965,
+        "id": 11,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "HGZ",
+        "lat": 53.08605,
+        "lng": 10.60435,
+        "id": 12,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 22,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Jahnstr./Händelstr.",
+        "lat": 53.07745,
+        "lng": 10.57043,
+        "id": 13,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 32,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Jastorf Schanzenweg",
+        "lat": 53.045517,
+        "lng": 10.601716,
+        "id": 14,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Jastorf Schützenstr.",
+        "lat": 53.046425,
+        "lng": 10.602792,
+        "id": 15,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Klein Bünstorf Siedlung",
+        "lat": 53.058014,
+        "lng": 10.586972,
+        "id": 16,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Klein Bünstorfer Str. Friedhof Ri. Bevensen ",
+        "lat": 53.073128,
+        "lng": 10.58324,
+        "id": 17,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Klein Bünstorfer Str. Friedhof Ri. Seedorf",
+        "lat": 53.073257,
+        "lng": 10.583028,
+        "id": 18,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Klein Hesebeck",
+        "lat": 53.05493,
+        "lng": 10.614997,
+        "id": 19,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Klein-Hesebecker Str.",
+        "lat": 53.07843,
+        "lng": 10.59144,
+        "id": 20,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 32,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Kurhaus",
+        "lat": 53.080765,
+        "lng": 10.587503,
+        "id": 21,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 7,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Lyraweg",
+        "lat": 53.08384,
+        "lng": 10.59819,
+        "id": 22,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 10,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Medingen Am Lerchenberg",
+        "lat": 53.091415,
+        "lng": 10.557615,
+        "id": 23,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 24,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medingen Mühlenstr.",
+        "lat": 53.089832,
+        "lng": 10.564325,
+        "id": 24,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 29,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medingen Siedlung",
+        "lat": 53.092052,
+        "lng": 10.560338,
+        "id": 25,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 23,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medingen Vier Linden Ri. Bevensen",
+        "lat": 53.08775,
+        "lng": 10.563029,
+        "id": 26,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 25,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medinger Allee Ri. Bevensen ",
+        "lat": 53.083973,
+        "lng": 10.567177,
+        "id": 28,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 26,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medinger Allee Ri. Medingen",
+        "lat": 53.084106,
+        "lng": 10.567337,
+        "id": 29,
+        "routes": [
+            {
+                "departure_offset": 3000,
+                "prev_id": 37,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medinger Str. Ri. Bahnhof",
+        "lat": 53.080747983638574,
+        "lng": 10.574448108673097,
+        "id": 30,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 28,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Medinger Str. Ri. Medingen",
+        "lat1": 53.080883,
+        "lng2": 10.574522,
+        "lat": 53.080634,
+        "lng": 10.575006,
+        "id": 31,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 8,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Rathausstr.",
+        "lat": 53.07945,
+        "lng": 10.57832,
+        "id": 32,
+        "routes": [
+            {
+                "route_id": 70721000,
+                "departure_offset": 0,
+                "arrival_offset": 2000,
+                "prev_id": 6
+            },
+            {
+                "route_id": 70722000,
+                "departure_offset": 0,
+                "arrival_offset": 2000,
+                "prev_id": 30
+            }
+        ]
+    },
+    {
+        "name": "Röbbel",
+        "lat": 53.06855,
+        "lng": 10.640521,
+        "id": 33,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Roggenkamp",
+        "lat": 53.08606,
+        "lng": 10.59029,
+        "id": 34,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 4,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Römstedter Str./Diana Klinik",
+        "lat": 53.08089,
+        "lng": 10.590873,
+        "id": 35,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Röntgenstr.",
+        "lat": 53.07596,
+        "lng": 10.59519,
+        "id": 36,
+        "routes": [
+            {
+                "departure_offset": 2000,
+                "prev_id": 20,
+                "route_id": 70721000
+            }
+        ]
+    },
+    {
+        "name": "Rosengarten",
+        "lat": 53.08511,
+        "lng": 10.572037,
+        "id": 37,
+        "routes": [
+            {
+                "departure_offset": 1000,
+                "prev_id": 31,
+                "route_id": 70722000
+            }
+        ]
+    },
+    {
+        "name": "Sasendorf Mitte",
+        "lat": 53.07379,
+        "lng": 10.55838,
+        "id": 38,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Schweizerhof Ri. Bevensen ",
+        "lat": 53.07926,
+        "lng": 10.545008,
+        "id": 39,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Schweizerhof Ri. Seedorf",
+        "lat": 53.079422,
+        "lng": 10.544886,
+        "id": 40,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    },
+    {
+        "name": "Seedorf (Kreis)",
+        "lat": 53.081223,
+        "lng": 10.514621,
+        "id": 41,
+        "routes": [
+            {
+                "departure_offset": 0,
+                "prev_id": 0,
+                "route_id": 0
+            }
+        ]
+    }
+]
