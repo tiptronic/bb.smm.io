@@ -531,7 +531,7 @@ if(SHOWMAP) {
 
 
     // MQTT - our sample broker is running on localhost:9001
-    const MQTTBROKERURL = 'ws://tiptronic.synology.me:9001';
+    const MQTTBROKERURL = 'ws://foxwerk.synology.me:9001';
     // we subscribe to all topics starting with 'mqtt/' (could be anything)
     const MQTTSUBSCRIPTION = 'owntracks/user/iphone13';
     class SampleAction {
