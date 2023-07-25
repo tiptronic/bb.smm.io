@@ -331,6 +331,7 @@ if(SHOWMAP) {
 
                             // layer.bindPopup('<h2>' + loc.location.name + '</h2>' + routes.toString() + '<p>name: ' + feature.properties.name + '</p><p>type: ' + feature.properties.type + '</p>');
                             layer.bindPopup('<h2>' + loc.location.name + '</h2>' + routes.toString());
+                            // bindPopup can also be used as a function which returns an HTML element sor string.
 
                         }
                         // console.log('LOC', feature.properties, loc, routes, temp, { prevStop, nextStop });
@@ -696,3 +697,4 @@ function findPrevious(id, routeId) {
     }
     return totalTime * 60;
 }
+
