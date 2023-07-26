@@ -8,7 +8,9 @@
 const USECLICK = false;
 const BBTRACKFILE = 'bb3.geojson';
 const BBHALTESTELLEN = 'haltestellen3.json';
+const JOSM = 'josm.json';
 const SHOWMAP = true;
+const MDRAWMAP = true;
 // const today = new Date(); d. setHours(0,0,0,0);
 
 // const svg = `<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1"
@@ -20,6 +22,14 @@ const SHOWMAP = true;
 //         <polygon id="Path" fill="#008754" points="60.1351351 45.9459459 39.8648649 45.9459459 39.8648649 24.3243243 31.7567568 24.3243243 31.7567568 75.6756757 39.8648649 75.6756757 39.8648649 52.7027027 60.1351351 52.7027027 60.1351351 75.6756757 68.2432432 75.6756757 68.2432432 24.3243243 60.1351351 24.3243243"></polygon>
 //     </g>
 // </svg>`;
+
+const svgTmp = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+    <g fill="none" fill-rule="nonzero">
+        <circle cx="50" cy="50" r="50" fill="#0099FF"/>
+        <circle cx="50" cy="50" r="47.297" fill="#0066CC"/>
+        <circle cx="50" cy="50" r="33.784" fill="#FFF"/>
+    </g>
+</svg>`;
 
 const svgWest = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
     <g fill="none" fill-rule="nonzero">
@@ -53,6 +63,7 @@ const svgAll = `<svg width="100px" height="100px" viewBox="0 0 100 100" version=
 var iconUrl = 'data:image/svg+xml;base64,' + btoa(svgAll);
 const iconUrl_west = 'data:image/svg+xml;base64,' + btoa(svgWest);
 const iconUrl_ost = 'data:image/svg+xml;base64,' + btoa(svgOst);
+const tmpIconUrl = 'data:image/svg+xml;base64,' + btoa(svgTmp);
 
 const tosvg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100"><defs><circle id="a" cx="40" cy="40" r="33.784"/></defs><circle cx="50" cy="50" r="50" fill="#F05FC4"/><circle cx="50" cy="50" r="47.297" fill="#AB448C"/><g transform="translate(10 10)"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use xlink:href="#a" fill="#F0CA00"/><g mask="url(#b)"><path d="M0 60h20v20H0z"/><path fill="#FFF" d="M20 60h20v20H20z"/><path d="M40 60h20v20H40z"/><path fill="#FFF" d="M60 60h20v20H60zM0 40h20v20H0z"/><path d="M20 40h20v20H20z"/><path fill="#FFF" d="M40 40h20v20H40z"/><path d="M60 40h20v20H60zM0 20h20v20H0z"/><path fill="#FFF" d="M20 20h20v20H20z"/><path d="M40 20h20v20H40z"/><path fill="#FFF" d="M60 20h20v20H60zM0 0h20v20H0z"/><path d="M20 0h20v20H20z"/><path fill="#FFF" d="M40 0h20v20H40z"/><path d="M60 0h20v20H60z"/></g></g></svg>';
 var toIconUrl = 'data:image/svg+xml;base64,' + btoa(tosvg);
@@ -76,6 +87,14 @@ const ostIcon = L.icon({
     iconUrl: iconUrl_ost,
     iconSize: [ 30, 30 ]
 });
+
+const tmpIcon = L.icon({
+    iconUrl: tmpIconUrl,
+    iconSize: [ 20, 20 ]
+});
+
+
+
 // const toIcon = L.icon({
 //     iconUrl: iconUrl,
 //     shadowUrl: iconUrl,
@@ -143,6 +162,31 @@ const toDateMs = ([ h, m ]) => {
     return d.getTime();
 };
 
+const bindPopup = (marker, createFn) => {
+    let popupComponent;
+    const DELAY = 200;
+    marker.bindPopup(() => {
+        let container = L.DomUtil.create('div');
+        popupComponent = createFn(container);
+        console.log('bindPopup::popupopen::created POP', popupComponent === container);
+        return container;
+    });
+
+    marker.on('popupclose', () => {
+        if(popupComponent) {
+            let old = popupComponent;
+            popupComponent = null;
+            setTimeout(() => {
+                old.destroy && old.destroy();
+                console.log('bindPopup::popupclose::destroyed POP', old);
+            }, DELAY);     // Wait until after a possible fadeout completes.
+        }
+    });
+
+    return popupComponent;
+};
+
+
 //   window.dataDiff = dateDiff;
 
 Object.values(routeLookup).forEach(element => {
@@ -152,10 +196,10 @@ Object.values(routeLookup).forEach(element => {
         // element.times = element.departure_times.map(Number); //.map(toDate);
         // element.times = element.departure_times.map(d => d.split(":").map(Number)).map(toDate);
         element.times = element.departure_times.map(d => d.split(":").map(Number)).map(toDateMs);
-        const tomorrow = element.times.map(t => t + 24*60*60*1000);
+        const tomorrow = element.times.map(t => t + 24 * 60 * 60 * 1000);
         element.times = element.times.concat(element.times, tomorrow);
         element.nextStartMs = element.times.find(t => t > now);
-        element.nextStart = new Date(element.nextStartMs).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'});
+        element.nextStart = new Date(element.nextStartMs).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     }
 });
 
@@ -205,8 +249,7 @@ if(SHOWMAP) {
         req.send(null);
     };
 
-    const lat = 53.0805;
-    const lng = 10.5700;
+
 
 
     // OSM Mapnik
@@ -214,6 +257,11 @@ if(SHOWMAP) {
         maxZoom: 20,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+
+    // const josmMap = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+    //     maxZoom: 20,
+    //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    // });
     // - Thunderforest Fahrradkarte
     // cycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=<dein Schlüssel>',
     //     {attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> Contributors &copy; <a href="https://thunderforest.com/">Thunderforest</a>"' }),
@@ -234,8 +282,12 @@ if(SHOWMAP) {
 
     // var landkarte = L.map('landkarte', {layers: [osmMap] }) // Nur ein Layer angeben!
     //     .setView([52.4433752, 13.3301968], 13);
-
-    var map = L.map('map', { layers: [ defaultMap ] }).setView([ lat, lng ], 16);
+    DEFAULTS = {
+     lat: 53.0805, // 53.0805
+     lng: 10.5800,
+     zoom: 15
+    }
+    var map = L.map('map', { layers: [ defaultMap ] }).setView([ DEFAULTS.lat, DEFAULTS.lng ], DEFAULTS.zoom);
 
     var busIcon = L.icon({
         iconUrl: 'busicon.png',
@@ -275,136 +327,163 @@ if(SHOWMAP) {
     var baseLayers = {
         "Straßenkarte": osmMap,
         // "Fahrrad": cycleMap,
-        "ÖPNV": opnv
+        "ÖPNV": opnv,
+        // "JOSM": josmMap
     };
 
     // Umschalter für die unterschiedlichen Kartenlayer
 
-    L.control.layers(baseLayers).addTo(map);
+    const layerControl = L.control.layers(baseLayers).addTo(map);
+    window.layerControl = layerControl;
 
     let haltestellen = [];
     let stops = [];
     window.haltestellen = haltestellen;
-    readJson(`${BBHALTESTELLEN}?${Date.now()}`, (inHaltestellen) => {
-        // console.log(data);
-        haltestellen = JSON.parse(inHaltestellen);
-        console.log('haltestellen', haltestellen);
 
-        readJson(`${BBTRACKFILE}?Date.now()`, (data) => {
-            var geojson = JSON.parse(data);
-            // console.log(geojson);
-            // L.geoJSON(geojson).addTo(map).
-            var layerGroup = L.geoJSON(geojson, {
-                onEachFeature: function(feature, layer) {
-                    if(feature.geometry.coordinates.length === 2) {
-                        let routes, prevStop, nextStop, temp;
-                        const loc = findLocation(feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ], haltestellen);
-                        // console.log('LOC', feature.properties, loc, feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ]);
-                        if(loc.location?.hasOwnProperty('routes')) {
-                            // console.log(feature.properties.name, feature.geometry.coordinates.length);
-                            stops.push(loc);
-                            routes = loc.location.routes;
-                            routes = loc.location.routes.map((route) => {
-                                const currentLocationId = loc.location.id;
-                                nextStop = haltestellen.find(h => h.routes.some(p => p.prev_id == currentLocationId && p.route_id == route.route_id));
-                                // prevStop = haltestellen.find(h => h.routes.prev_id == route.id); 
-                                prevStop = haltestellen.find(h => h.id == route.prev_id);
+    if(MDRAWMAP) {
+        readJson(`${BBHALTESTELLEN}?${Date.now()}`, (inHaltestellen) => {
+            // console.log(data);
+            haltestellen = JSON.parse(inHaltestellen);
+            console.log('haltestellen', haltestellen);
 
-                                route.nextStop = nextStop;
-                                route.prevStop = prevStop;
-                                route.namexx = feature.properties.name;
-                                route.typexx = feature.properties.type;
-                                route.sinceStart = findPrevious(currentLocationId, route.route_id);
+            readJson(`${BBTRACKFILE}?Date.now()`, (data) => {
+                var geojson = JSON.parse(data);
+                // console.log(geojson);
+                // L.geoJSON(geojson).addTo(map).
+                var layerGroup = L.geoJSON(geojson, {
+                    onEachFeature: function(feature, layer) {
+                        if(feature.geometry.coordinates.length === 2) {
+                            let routes, prevStop, nextStop, temp;
+                            const loc = findLocation(feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ], haltestellen);
+                            // console.log('LOC', feature.properties, loc, feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ]);
+                            if(loc.location?.hasOwnProperty('routes')) {
+                                // console.log(feature.properties.name, feature.geometry.coordinates.length);
+                                stops.push(loc);
+                                routes = loc.location.routes;
+                                routes = loc.location.routes.map((route) => {
+                                    const currentLocationId = loc.location.id;
+                                    nextStop = haltestellen.find(h => h.routes.some(p => p.prev_id == currentLocationId && p.route_id == route.route_id));
+                                    // prevStop = haltestellen.find(h => h.routes.prev_id == route.id); 
+                                    prevStop = haltestellen.find(h => h.id == route.prev_id);
 
-                                const routeInfo = routeLookup[ route.route_id.toString() ];
-                                route.nextStartXX = '';
-                                if(routeInfo && feature.properties.type !=='to') {
-                                    if(feature.properties.type === 'from') {
-                                        route.nextStartXX = `<div>Nächste Abfahrt:</div><h1> ${routeInfo.nextStart}</h1>`;
-                                    } else {
-                                        route.nextStartXX = `<div>Nächste Abfahrt:<div><h1>${new Date(routeInfo.nextStartMs+route.sinceStart).toLocaleTimeString([], {hour: 'numeric', minute:'2-digit'})}</h1>`;
+                                    route.nextStop = nextStop;
+                                    route.prevStop = prevStop;
+                                    route.namexx = feature.properties.name;
+                                    route.typexx = feature.properties.type;
+                                    route.sinceStart = findPrevious(currentLocationId, route.route_id);
+
+                                    const routeInfo = routeLookup[ route.route_id.toString() ];
+                                    route.nextStartXX = '';
+                                    if(routeInfo && feature.properties.type !== 'to') {
+                                        if(feature.properties.type === 'from') {
+                                            route.nextStartXX = `<div>Nächste Abfahrt:</div><h1> ${routeInfo.nextStart}</h1>`;
+                                        } else {
+                                            route.nextStartXX = `<div>Nächste Abfahrt:<div><h1>${new Date(routeInfo.nextStartMs + route.sinceStart).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</h1>`;
+                                        }
                                     }
-                                }
-                                const s = routeInfo?.name || 'nix';
-                                return `<h3>${s}</h3>${route.nextStartXX}<p><div>voriger Halt: ${prevStop?.name || ''}</div><div>nächster Halt: ${nextStop?.name || ''}</div></p>`;
-                            }).join('');
+                                    const s = routeInfo?.name || 'nix';
+                                    return `<h3>${s}</h3>${route.nextStartXX}<p><div>voriger Halt: ${prevStop?.name || ''}</div><div>nächster Halt: ${nextStop?.name || ''}</div></p>`;
+                                }).join('');
 
-                            // layer.bindPopup('<h2>' + loc.location.name + '</h2>' + routes.toString() + '<p>name: ' + feature.properties.name + '</p><p>type: ' + feature.properties.type + '</p>');
-                            layer.bindPopup('<h2>' + loc.location.name + '</h2>' + routes.toString());
-                            // bindPopup can also be used as a function which returns an HTML element sor string.
+                                bindPopup(layer, (el) => {
+                                    el.innerHTML = '<h2>' + loc.location.name + '</h2>' + routes.toString() + '<p>name: ' + feature.properties.name + '</p><p class="timer" >' + new Date().toLocaleTimeString() + '</p>';
+                                    const timr = el.querySelector('.timer');
+                                    if(!timr) return el;
+                                    let intv = setInterval(() => {
+                                        timr.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+                                    }, 1000);
+                                    //install private destroy function for popup
+                                    el.destroy = () => {
+                                        console.log('el.destroy::clearInterval', intv);
+                                        clearInterval(intv);
+                                        intv = null;
+                                    };
+                                    return el;
+                                });
+
+
+                                // const po = layer.bindPopup(testPopup()).on("popupopen", function (popup) {
+                                //     console.log('popupopen', popup);
+                                //     // addTest();
+                                //   }).on("popupclose", function (popup) {
+                                //     console.log('CLOSED POP', popup);
+
+                                //   });
+
+                            }
+                            // console.log('LOC', feature.properties, loc, routes, temp, { prevStop, nextStop });
+                            // feature.properties.name = loc.name;
+                        } else {
+                            layer.bindPopup('<h2>' + feature.properties.name + '</h2><p>name: ' + feature.properties.type + '</p>');
 
                         }
-                        // console.log('LOC', feature.properties, loc, routes, temp, { prevStop, nextStop });
-                        // feature.properties.name = loc.name;
-                    } else {
-                        layer.bindPopup('<h2>' + feature.properties.name + '</h2><p>name: ' + feature.properties.type + '</p>');
-
-                    }
-                },
-                pointToLayer: function(feature, latlng) {
-                    switch(feature.properties.type) { 
-                        case 'to':
-                            return L.marker(latlng, {
-                                icon: toIcon,
-                                title: feature.properties.name,
-                                riseOnHover: false
-                            });
-                            break;
-                        case 'from':
-                            return L.marker(latlng, {
-                                icon: fromIcon,
-                                title: feature.properties.name,
-                                riseOnHover: true
-                            });
-                            break;
-                        default:
-                            return L.marker(latlng, {
-                                icon: toIcon30,
-                                title: feature.properties.name,
-                                riseOnHover: true
-                            });
-                    }
-                },
-            }).addTo(map);
-            console.log(layerGroup);
-            console.log(stops);
-
-            // const totalTimeSinceStart = (s) => {
-            //     const startId = 32;
-            //     // const routeId = 70722000;
-            //     let totalTime = 0;
-            //     let prev = s.prevStop;
-            //     let cnt = 20;
-            //     while(prev && prev.id !== startId && (cnt-- > 0)) {
-            //         prev = s.prevStop;
-
-            //     }
-            //     return totalTime;
-            // };
-
-            // stops.forEach((s) => {
-            //     const prev = s => h.routes.some(p => p.route_id == 70722000);
+                    },
+                    pointToLayer: function(feature, latlng) {
+                        switch(feature.properties.type) {
+                            case 'to':
+                                return L.marker(latlng, {
+                                    icon: toIcon,
+                                    title: feature.properties.name,
+                                    riseOnHover: false
+                                });
+                                break;
+                            case 'from':
+                                return L.marker(latlng, {
+                                    icon: fromIcon,
+                                    title: feature.properties.name,
+                                    riseOnHover: true
+                                });
+                                break;
+                            default:
+                                return L.marker(latlng, {
+                                    icon: toIcon30,
+                                    title: feature.properties.name,
+                                    riseOnHover: true
+                                });
+                        }
+                    },
+                }).addTo(map);
 
 
-            // });
+
+                console.log(stops);
+
+                // const totalTimeSinceStart = (s) => {
+                //     const startId = 32;
+                //     // const routeId = 70722000;
+                //     let totalTime = 0;
+                //     let prev = s.prevStop;
+                //     let cnt = 20;
+                //     while(prev && prev.id !== startId && (cnt-- > 0)) {
+                //         prev = s.prevStop;
+
+                //     }
+                //     return totalTime;
+                // };
+
+                // stops.forEach((s) => {
+                //     const prev = s => h.routes.some(p => p.route_id == 70722000);
 
 
-            const makeMarker = ({ lat, lng }) => {
-                const m = L.marker([ lat, lng ], { icon: ostIcon });
-                m.addTo(map);
-                // console.log('Marker', m);
+                // });
 
-            };
-            const features = haltestellen.filter(h => h.routes.some(p => p.route_id == 70721000));
-            features.map(makeMarker);
-            // const features = haltestellen.filter(h =>const features = haltestellen.filter(h => h.route_id == 70721000).map(makeMarker);
-            // console.log('features', features);
 
+                const makeMarker = ({ lat, lng }) => {
+                    const m = L.marker([ lat, lng ], { icon: ostIcon });
+                    m.addTo(map);
+                    // console.log('Marker', m);
+
+                };
+                const features = haltestellen.filter(h => h.routes.some(p => p.route_id == 70721000));
+                features.map(makeMarker);
+                // const features = haltestellen.filter(h =>const features = haltestellen.filter(h => h.route_id == 70721000).map(makeMarker);
+                // console.log('features', features);
+
+
+            });
 
         });
-
-    });
-
+    }
 
 
 
@@ -697,4 +776,63 @@ function findPrevious(id, routeId) {
     }
     return totalTime * 60;
 }
+
+// const makeMarker = ({ lat, lng }) => {
+//     const m = L.marker([ lat, lng ], { icon: ostIcon });
+//     m.addTo(map);
+//     // console.log('Marker', m);
+
+// };
+
+const makeMarker = (loc) => {
+    if(!loc) return;
+    // L.marker([ lat, lng ], { icon: ostIcon });
+    // L.marker(loc.coordinates, { icon: tmpIcon }).addTo(map);
+    const layer =  L.marker(loc.coordinates, { icon: tmpIcon, zIndexOffset: 1000 });
+    bindPopup(layer, (el) => {
+        el.innerHTML = '<h2>' + loc.name + '</h2>';
+    //     el.innerHTML = '<h2>' + loc.location.name + '</h2>' + routes.toString() + '<p>name: ' + feature.properties.name + '</p><p class="timer" >' + new Date().toLocaleTimeString() + '</p>';
+    //     const timr = el.querySelector('.timer');
+    //     if(!timr) return el;
+    //     let intv = setInterval(() => {
+    //         timr.textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+    //     }, 1000);
+    //     //install private destroy function for popup
+    //     el.destroy = () => {
+    //         console.log('el.destroy::clearInterval', intv);
+    //         clearInterval(intv);
+    //         intv = null;
+    //     };
+        return el;
+    });
+    return layer;
+};
+
+readJson(`${JOSM}?${Date.now()}`, (jsn) => {
+    // console.log(data);
+    const all = JSON.parse(jsn);
+
+    console.log('stops', all.Stops);
+    const stops = all.Stops;
+    const markers = L.layerGroup(stops.map(makeMarker)); //.setZIndex(1000);
+    console.log('markers', markers);
+    // var overlayMaps = {
+    //     "Cities": cities
+    // };
+    // layerControl.addBaseLayer(satellite, "Satellite");
+    layerControl.addOverlay(markers, "JOSM stops");
+
+    const showAllLines = () => {
+        console.log('lines', all.Lines);
+        const lines = all.Lines;
+        lines.forEach(line => {
+            line.stops.forEach(stopId => {
+                const found = stops.find(s => s.id === stopId);
+                makeMarker(found);
+            });
+
+        });
+    };
+
+});
 

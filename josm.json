@@ -1,0 +1,368 @@
+{
+    "Lines": [
+        {
+            "id": 7072,
+            "name": "Route West",
+            "stops": [
+                1000,
+                1001,
+                1002,
+                1003,
+                1004,
+                1005,
+                1006,
+                1007,
+                1008,
+                1009,
+                1010,
+                1011,
+                1012,
+                1013,
+                1014,
+                1000,
+                2001,
+                2002,
+                2003,
+                2004,
+                2005,
+                2006,
+                2007,
+                2008,
+                2009,
+                1026,
+                1000
+            ]
+        }
+    ],
+    "Stops": [
+        {
+            "name": "Rathausstraße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.53079503,
+                10.5783341
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1000
+        },
+        {
+            "name": "Jahnstr./Händelstr.",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0776371,
+                10.5703852
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1001
+        },
+        {
+            "name": "Am Britzenberg / Schubertstraße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0781524,
+                10.5654349
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1002
+        },
+        {
+            "name": "Am Britzenberg / Mozartstr.",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0781524,
+                10.5654349
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1003
+        },
+        {
+            "name": "Ebstorfer Straße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0810009,
+                10.568877
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1004
+        },
+        {
+            "name": "Medinger Str. Ri. Medingen",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0808101,
+                10.5746012
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1005
+        },
+        {
+            "name": "Rosengarten",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0851127,
+                10.5719595
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1006
+        },
+        {
+            "name": "Medinger Str. Ri. Medingen",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0841014,
+                10.5667666
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1007
+        },
+        {
+            "name": "Medingen / Mühlenstraße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.089832,
+                10.564508
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1008
+        },
+        {
+            "name": "Medingen / Lerchenberg",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0914159,
+                10.5575971
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1009
+        },
+        {
+            "name": "Medingen, Siedlung",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0920004,
+                10.5604949
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1010
+        },
+        {
+            "name": "Medingen, Vier Linden",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.087794,
+                10.5629241
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1011
+        },
+        {
+            "name": "Bad Bevensen Medinger Allee",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0839871,
+                10.5674262
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1012
+        },
+        {
+            "name": "Medinger Str. Ri. Bahnhof",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0809296,
+                10.5743985
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1013
+        },
+        {
+            "name": "Bahnhof",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0784493,
+                10.5745023
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1014
+        },
+        {
+            "name": "Klein Hesebecker Straße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0784328,
+                10.5915025
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2001
+        },
+        {
+            "name": "Röntgenstraße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0759613, 10.5952393
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2002
+        },
+        {
+            "name": "Albert-Schweitzer-Straße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0763067, 10.5982996
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2003
+        },
+        {
+            "name": "Gollerner Weg",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0803364, 10.5976303
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2004
+        },
+        {
+            "name": "Lyraweg",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0838408, 10.5981773
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2005
+        },
+        {
+            "name": "HGZ",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0860892, 10.604267
+            ],
+            "ref": [
+                7072    
+            ],
+            "id": 2006
+        },
+        {
+            "name": "Am Fuhrenkamp",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0843043, 10.5926312
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2007
+        },
+        {
+            "name": "Roggenkamp",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0859391, 10.5903382
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2008
+        },
+        {
+            "name": "Dahlenburger Straße",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0841301, 10.588670
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2009
+        },
+        {
+            "name": "Kurhaus",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.0808281, 10.5874435
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 2009
+        },
+        {
+            "name": "Bahnhof",
+            "public_transport": "stop_position",
+            "bus": "yes",
+            "coordinates": [
+                53.078355,
+                10.5747204
+            ],
+            "ref": [
+                7072
+            ],
+            "id": 1026
+        }
+    ]
+}
