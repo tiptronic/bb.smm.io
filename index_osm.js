@@ -1,0 +1,3 @@
+
+
+const osm = new OSMData();

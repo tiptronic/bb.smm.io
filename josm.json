@@ -101,7 +101,8 @@
             "id": 1004
         },
         {
-            "name": "Medinger Str. Ri. Medingen",
+            "name": "Medinger Straße",
+            "name2": "Richtung Medingen",
             "public_transport": "stop_position",
             "bus": "yes",
             "coordinates": [
@@ -127,12 +128,12 @@
             "id": 1006
         },
         {
-            "name": "Medinger Str. Ri. Medingen",
+            "name": "Medinger Allee",
+            "name2": "Richtung Medingen",
             "public_transport": "stop_position",
             "bus": "yes",
             "coordinates": [
-                53.0841014,
-                10.5667666
+                53.0839871, 10.5674262
             ],
             "ref": [
                 7072
@@ -192,12 +193,12 @@
             "id": 1011
         },
         {
-            "name": "Bad Bevensen Medinger Allee",
+            "name": "Medinger Allee",
+            "name2": "Richtung Bevensen",
             "public_transport": "stop_position",
             "bus": "yes",
             "coordinates": [
-                53.0839871,
-                10.5674262
+                53.0839871, 10.5674262
             ],
             "ref": [
                 7072
@@ -205,7 +206,8 @@
             "id": 1012
         },
         {
-            "name": "Medinger Str. Ri. Bahnhof",
+            "name": "Medinger Straße",
+            "name2": "Richtung Bahnhof",
             "public_transport": "stop_position",
             "bus": "yes",
             "coordinates": [

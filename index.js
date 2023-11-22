@@ -6,7 +6,9 @@
 // https://github.com/perliedman/leaflet-routing-machine
 
 const USECLICK = false;
-const BBTRACKFILE = 'bb3.geojson';
+// const BBTRACKFILE = 'bb3.geojson';
+
+const BBTRACKFILE = 'export.geojson';
 const BBHALTESTELLEN = 'haltestellen3.json';
 const JOSM = 'josm.json';
 const SHOWMAP = true;
@@ -345,14 +347,20 @@ if(SHOWMAP) {
             // console.log(data);
             haltestellen = JSON.parse(inHaltestellen);
             console.log('haltestellen', haltestellen);
-
+            console.log('READING geoJson:', BBTRACKFILE);
             readJson(`${BBTRACKFILE}?Date.now()`, (data) => {
                 var geojson = JSON.parse(data);
-                // console.log(geojson);
+                console.log('PARSING geoJson:', geojson);
+                geojson.features = geojson.features.filter(g => g.properties?.name)
+    
                 // L.geoJSON(geojson).addTo(map).
                 var layerGroup = L.geoJSON(geojson, {
                     onEachFeature: function(feature, layer) {
-                        if(feature.geometry.coordinates.length === 2) {
+                        // console.log(feature);
+                        if(!feature.properties.name) {
+                            //nothing
+                            console.log('no name');
+                        } else if(feature.geometry.coordinates.length === 2) {
                             let routes, prevStop, nextStop, temp;
                             const loc = findLocation(feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ], haltestellen);
                             // console.log('LOC', feature.properties, loc, feature.geometry.coordinates[ 1 ], feature.geometry.coordinates[ 0 ]);
@@ -418,6 +426,7 @@ if(SHOWMAP) {
 
                         }
                     },
+                    
                     pointToLayer: function(feature, latlng) {
                         switch(feature.properties.type) {
                             case 'to':
@@ -790,7 +799,7 @@ const makeMarker = (loc) => {
     // L.marker(loc.coordinates, { icon: tmpIcon }).addTo(map);
     const layer =  L.marker(loc.coordinates, { icon: tmpIcon, zIndexOffset: 1000 });
     bindPopup(layer, (el) => {
-        el.innerHTML = '<h2>' + loc.name + '</h2>';
+        el.innerHTML = `<h2>${loc.name}</h2><p>${loc.name2 || ''}</p`;
     //     el.innerHTML = '<h2>' + loc.location.name + '</h2>' + routes.toString() + '<p>name: ' + feature.properties.name + '</p><p class="timer" >' + new Date().toLocaleTimeString() + '</p>';
     //     const timr = el.querySelector('.timer');
     //     if(!timr) return el;

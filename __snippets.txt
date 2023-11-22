@@ -1,0 +1,9 @@
+bus=yes
+name=Bahnhof
+public_transport=stop_position
+shelter=no
+
+
+highway=bus_stop
+name=Bahnhof
+public_transport=platform
