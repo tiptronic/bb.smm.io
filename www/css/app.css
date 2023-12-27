@@ -46,9 +46,19 @@
 }
 
 
+.map,
 #map {
     overflow: hidden;
-    position: fixed;
-    height: 100%;
+    /* position: fixed; */
+    height: calc(100vh - 200px);
     width: 100%;
+    max-height: 800px;
+}
+
+#detailsMap {
+    height: 70vh;
+}
+
+.list .item-after.bb_smaller {
+    font-size: 0.8em;
 }

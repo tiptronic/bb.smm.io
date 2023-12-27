@@ -1,46 +1,103 @@
 <template>
-  <div class="page" data-name="catalog">
-    <div class="navbar">
-      <div class="navbar-bg"></div>
-      <div class="navbar-inner sliding">
-        <div class="title">Catalog</div>
-      </div>
+    <div class="page" data-name="catalog">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="title">Catalog</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="block">
+                <a href="#" class="button" @click=${initGeo}>InitGeoLocation</a>
+            </div>
+            <div class="list list-strong list-dividers-ios list-outline-ios inset-md">
+                <ul>
+                    ${products.value.map((product) => $h`
+                    <li>
+                        <a class="item-content item-link" href="/product/${product.id}/">
+                            <div class="item-inner">
+                                <div class="item-title">${product.tags.name}</div>
+                                ${product.distanceToCurrent?.length > 0 && $h`
+                                <div class="item-after bb_smaller">
+                                    <small>Entfernung: ${product.distanceToCurrent} m</small>
+                                </div>`}
+                            </div>
+                        </a>
+                    </li>
+                    `)}
+                </ul>
+            </div>
+            ${products.value.length > 0 && $h`
+            <div class="block">
+                <button class="button button-fill" @click=${addProduct}>Add Stop</Button>
+            </div>
+            `}
+        </div>
     </div>
-    <div class="page-content">
-      <div class="list list-strong list-dividers-ios list-outline-ios inset-md">
-        <ul>
-          ${products.value.map((product) => $h`
-          <li>
-            <a class="item-content item-link" href="/product/${product.id}/">
-              <div class="item-inner">
-                <div class="item-title">${product.tags.name}</div>
-              </div>
-            </a>
-          </li>
-          `)}
-        </ul>
-      </div>
-      ${products.value.length === 3 && $h`
-      <div class="block">
-        <button class="button button-fill" @click=${addProduct}>Add Stop</Button>
-      </div>
-      `}
-    </div>
-  </div>
 </template>
 <script>
-  export default (props, { $store }) => {
-    const products = $store.getters.stops;
+    export default (props, { $f7, $store, $on, $onBeforeMount, $onMounted, $onBeforeUnmount, $onUnmounted }) => {
+        const products = $store.getters.stops;
 
-    const addProduct = () => {
-      $store.dispatch('addProduct', {
-        id: '4',
-        title: 'Apple iPhone 12',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-      });
+        const initGeo = () => {
+            const app = $f7;
+            // $f7.dialog.alert('Hello World');
+            $f7.dialog.confirm('Position ermittlen?', function() {
+                app.initLocation();
+            });
+
+        };
+
+        $onBeforeMount(() => {
+            console.log('Catalog:onBeforeMount');
+        });
+        $onMounted(() => {
+            console.log('Catalog:onMounted');
+        });
+        $onBeforeUnmount(() => {
+            console.log('Catalog:onBeforeUnmount');
+        });
+        $onUnmounted(() => {
+            console.log('Catalog:onUnmounted');
+        });
+
+        // Page Events
+        $on('pageMounted', (e, page) => {
+            console.log('Catalog:pageMounted', page);
+        });
+        $on('pageInit', (e, page) => {
+            console.log('Catalog:pageInit', page);
+        });
+        $on('pageBeforeIn', (e, page) => {
+            console.log('Catalog:pageBeforeIn', page);
+        });
+        $on('pageAfterIn', (e, page) => {
+            console.log('Catalog:pageAfterIn', page);
+            //   setTimeout(() => {
+            //     $f7.dialog.alert('Hello World');
+            //     $f7.initLocation();
+            //   }, 1000)
+
+        });
+        $on('pageBeforeOut', (e, page) => {
+            console.log('Catalog:pageBeforeOut', page);
+        });
+        $on('pageAfterOut', (e, page) => {
+            console.log('Catalog:pageAfterOut', page);
+        });
+        $on('pageBeforeRemove', (e, page) => {
+            console.log('Catalog:pageBeforeRemove', page);
+        });
+
+        const addProduct = () => {
+            $store.dispatch('addProduct', {
+                id: '4',
+                title: 'Apple iPhone 12',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
+            });
+        };
+
+        return $render;
     }
-
-    return $render;
-  }
 
 </script>

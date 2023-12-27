@@ -1,8 +1,50 @@
 
 
-var createStore = Framework7.createStore;
+const createStore = Framework7.createStore;
+const osmData = new OSMData();
+const BBTRACKS = {
+    7072: {
+        id: 16165831,
+        ref: '7072',
+        overpassQuery: `[out:json][timeout:25];wr["ref"="7072"]["route"="bus"](53.064842,10.544642,53.098869,10.610089);(._;>;);out;`,
+    },
+    7073: {
+        id: 16864019,
+        ref: '7073',
+        overpassQuery: `[out:json][timeout:25];wr["ref"="7073"]["route"="bus"](53.048,10.67,53.08,10.50);(._;>;);out;`,
+    }
+};
+const SETTINGS = {
+    STORAGEKEY: 'BBSETTINGS_001'
+};
+
+const storageKey = (key) => {
+    return `${SETTINGS.STORAGEKEY}/${key}`;
+};
+
+const getFromLocalStorage = (key, defaultValue) => {
+    const data = localStorage[ storageKey(key) ];
+    return data ? JSON.parse(data) : defaultValue;
+};
+
+const getFromLocalStorageOrSave = (key, defaultValue) => {
+    const lsKey = storageKey(key);
+    let storageItem = localStorage[ lsKey ];
+    if(!storageItem) {
+        localStorage[ lsKey ] = JSON.stringify(defaultValue);
+        return defaultValue;
+    }
+    return storageItem ? JSON.parse(storageItem) : defaultValue;
+};
+
 const store = createStore({
+    osmData,
     state: {
+        osmData,
+        currentLocation: null,
+        routes: getFromLocalStorageOrSave('routes', [ 7072, 7073 ]),
+        tracks: getFromLocalStorageOrSave('tracks', BBTRACKS),
+        theme: localStorage.theme || 'dark',
         products: [
             {
                 id: '1',
@@ -20,7 +62,8 @@ const store = createStore({
                 description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
             },
         ],
-        stops: [
+        stops: [],
+        stops2: [
             {
                 "type": "node",
                 "id": 11068258650,
@@ -262,6 +305,16 @@ const store = createStore({
         addProduct({ state }, product) {
             state.products = [ ...state.products, product ];
         },
+        setLocation({ state }, location) {
+            osmData.setLocation(location);
+            state.currentLocation = location; // {lat,lon}
+            state.stops = [ ...state.stops ];
+            console.log('setLocation', location, 'stops', state.stops);
+        }
     },
-})
+});
 
+osmData.loadData().then(data => {
+    console.log('data', data);
+    store.state.stops = osmData.stops;
+});

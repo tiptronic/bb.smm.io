@@ -1,38 +1,128 @@
 <template>
-  <div class="page" data-name="product">
-    <div class="navbar">
-      <div class="navbar-bg"></div>
-      <div class="navbar-inner sliding">
-        <div class="left">
-          <a href="#" class="link back">
-            <i class="icon icon-back"></i>
-            <span class="if-not-md">Back</span>
-          </a>
+    <div class="page" data-name="product">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+                <div class="title">${currentProduct.tags.name}</div>
+            </div>
         </div>
-        <div class="title">${currentProduct.tags.name}</div>
-      </div>
+        <div class="page-content">
+            <div class="block-title">${currentProduct.tags.name} ${new Date().toLocaleTimeString()}</div>
+                <div class="map" id="detailsMap"></div>
+            <div class="block">
+                <div class="list list-dividers-ios list-outline-ios inset-md">
+                    <ul>
+                        ${Object.entries(currentProduct).filter(([o,p]) => typeof p !== 'object').map(([a,b]) => $h`<li>${a}: ${b}</li>`)}
+                        ${Object.entries(currentProduct.tags).map(([a,b]) => $h`<li>${a}: ${b}</li>`)}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="page-content">
-      <div class="block-title">About ${currentProduct.tags.name}</div>
-      <div class="block">
-        lat: ${currentProduct.lat} lon:${currentProduct.lat}
-      </div>
-    </div>
-  </div>
 </template>
 <script>
-  export default (props, { $f7route, $store }) => {
-    const products = $store.getters.stops;
-    const productId = Number($f7route.params.id);
-    console.log($f7route.params, $store.getters.stops   );
-    let currentProduct;
-    products.value.forEach((product) => {
-      if (product.id === productId) {
-        currentProduct = product;
-        console.log(productId, currentProduct);
-      }
-    });
+    export default (props, { $f7, $f7route, $store, $on, $onBeforeMount, $onMounted, $onBeforeUnmount, $onUnmounted }) => {
+        let currentProduct;
+        let properties = '';
+        const makeList = (o) => {
+            // console.log('makeList', o);
+            let list = '';
+            Object.entries(o).forEach(([ k, v ]) => {
+                if(typeof v === 'object')
+                    list += `<li>${k} - ${makeList(v)}</li>`;
+                else if(typeof v === 'string') {
+                    if(v.startsWith('http'))
+                        list += `<li>${k} - <a href="${v}">${v}</a></li>`;
+                    else
+                        list += `<li>${k} - ${v}</li>`;
+                }
+                else {
+                    list += `<li>${k} - ${v}</li>`;
+                }
 
-    return $render;
-  };
+            });
+            // console.log('makeList2', list);
+            return list;
+        };
+        // $onBeforeMount(() => {
+        //     console.log('Product:onBeforeMount');
+        // });
+        // $onMounted(() => {
+        //     console.log('Product:onMounted');
+        //     initMap(currentProduct);
+        // });
+        // $onBeforeUnmount(() => {
+        //     console.log('Product:onBeforeUnmount');
+        // });
+        // $onUnmounted(() => {
+        //     console.log('Product:onUnmounted');
+        // });
+
+        // Page Events
+        $on('pageMounted', (e, page) => {
+            console.log('Product:pageMounted', page);
+
+            initMap(currentProduct);
+        });
+        $on('pageInit', (e, page) => {
+            console.log('Product:pageInit', page);
+        });
+        // $on('pageBeforeIn', (e, page) => {
+        //     console.log('Product:pageBeforeIn', page);
+        // });
+        // $on('pageAfterIn', (e, page) => {
+        //     console.log('Product:pageAfterIn', page);
+        // });
+        // $on('pageBeforeOut', (e, page) => {
+        //     console.log('Product:pageBeforeOut', page);
+        // });
+        // $on('pageAfterOut', (e, page) => {
+        //     console.log('Product:pageAfterOut', page);
+        // });
+        // $on('pageBeforeRemove', (e, page) => {
+        //     console.log('Product:pageBeforeRemove', page);
+        // });
+
+
+        const initMap = (currentProduct) => {
+            const osmMap = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                maxZoom: 20,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            });
+
+            const defaultMap = osmMap;
+            var map = L.map('detailsMap', { layers: [ defaultMap ] }).setView([ currentProduct.lat, currentProduct.lon ], 17);
+
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //     attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+            // }).addTo(map);
+
+            var marker = L.marker([ currentProduct.lat, currentProduct.lon ])
+                .addTo(map)
+                .bindPopup(currentProduct.tags.name)
+                .openPopup();
+
+        };
+
+        const products = $store.getters.stops;
+        const productId = Number($f7route.params.id);
+        console.log('F7', $f7, this, $f7route.params, $store.getters.stops);
+
+        products.value.forEach((product) => {
+            if(product.id === productId) {
+                currentProduct = product;
+                console.log(productId, currentProduct);
+            }
+        });
+
+        properties = makeList(currentProduct);
+
+        return $render;
+    };
 </script>
