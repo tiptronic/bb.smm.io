@@ -3,7 +3,7 @@
     "short_name": "BürgerBus App",
     "description": "BürgerBus App",
     "lang": "de-DE",
-    "start_url": ".",
+    "start_url": "/v3",
     "display": "standalone",
     "background_color": "#EE350F",
     "theme_color": "#EE350F",
